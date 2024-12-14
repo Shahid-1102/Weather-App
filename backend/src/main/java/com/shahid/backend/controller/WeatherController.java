@@ -18,10 +18,20 @@ public class WeatherController {
     private WeatherService weatherService;
 
     @GetMapping
-    public ResponseEntity<WeatherData> getWeather(@RequestParam String city) {
-        WeatherData weather = weatherService.getWeather(city);
+    public ResponseEntity<WeatherData> getWeather(@RequestParam String city, @RequestParam(defaultValue = "metric") String unit) {
+        WeatherData weather = weatherService.getWeather(city, unit);
         if (weather != null) {
             return new ResponseEntity<>(weather, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/forecast")
+    public ResponseEntity<WeatherData[]> getWeatherForecast(@RequestParam String city, @RequestParam(defaultValue = "metric") String unit) {
+        WeatherData[] forecast = weatherService.getWeatherForecast(city, unit);
+        if (forecast != null && forecast.length > 0) {
+            return new ResponseEntity<>(forecast, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
