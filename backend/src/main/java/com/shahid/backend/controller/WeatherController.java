@@ -1,6 +1,5 @@
 package com.shahid.backend.controller;
 
-import com.shahid.backend.model.WeatherApi;
 import com.shahid.backend.model.WeatherData;
 import com.shahid.backend.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class WeatherController {
     @Autowired
     private WeatherService weatherService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<WeatherData> getWeather(@RequestParam String city) {
         WeatherData weather = weatherService.getWeather(city);
         if (weather != null) {
