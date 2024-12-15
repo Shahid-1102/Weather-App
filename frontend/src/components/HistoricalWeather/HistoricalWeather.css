@@ -1,0 +1,23 @@
+.historical-weather {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.historical-weather .historical-card {
+  background-color: #e8f5e9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.historical-weather .timestamp {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.historical-weather .temperature {
+  font-size: 1rem;
+  color: #333;
+}

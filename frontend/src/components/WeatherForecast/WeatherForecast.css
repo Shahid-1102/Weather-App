@@ -1,0 +1,26 @@
+.weather-forecast {
+    display: flex; /* Use flexbox for a single row layout */
+    gap: 16px; /* Space between cards */
+    margin-top: 16px;
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+    padding: 8px; /* Optional: Add padding around the container */
+  }
+  
+  .weather-forecast .forecast-card {
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    flex: 0 0 240px; /* Fixed width for each card */
+  }
+  
+  .weather-forecast .forecast-card .timestamp {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .weather-forecast .forecast-card .temperature {
+    font-size: 1rem;
+    color: #333;
+  }
+  

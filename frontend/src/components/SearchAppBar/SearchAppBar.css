@@ -1,0 +1,29 @@
+.app-bar {
+  background-color: #1976d2; /* Blue color for the app bar */
+}
+
+.app-bar .search {
+  background-color: #ffffff; /* White background for the search bar */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  padding: 4px;
+  width: 100%;
+}
+
+.app-bar .search:hover {
+  background-color: #f1f1f1; /* Slightly darker when hovered */
+}
+
+.app-bar .search-input {
+  flex-grow: 1;
+  padding: 8px;
+}
+
+.app-bar .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  flex-grow: 1;
+}

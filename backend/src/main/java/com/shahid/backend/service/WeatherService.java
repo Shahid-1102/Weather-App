@@ -32,7 +32,7 @@ public class WeatherService {
 
 //CURRENT WEATHER
 
-    public WeatherData getWeather(String city, String unit) {
+    public WeatherData getWeather(String city) {
         Optional<WeatherData> cachedWeather = weatherRepo.findByCityName(city);
 
         if (cachedWeather.isPresent()) {
@@ -43,7 +43,7 @@ public class WeatherService {
             }
         }
 
-        WeatherData weather = fetchWeatherFromApi(city, unit);
+        WeatherData weather = fetchWeatherFromApi(city);
 
         if (weather != null) {
             weather.setTimestamp(LocalDateTime.now());
@@ -53,8 +53,8 @@ public class WeatherService {
         return weather;
     }
 
-    private WeatherData fetchWeatherFromApi(String city, String unit) {
-        String url = String.format("http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=%s", city, apiKey, unit);
+    private WeatherData fetchWeatherFromApi(String city) {
+        String url = String.format("http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric", city, apiKey);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -107,12 +107,12 @@ public class WeatherService {
 
 //FORECAST
 
-    public WeatherData[] getWeatherForecast(String city, String unit) {
-        return fetchWeatherForecast(city, unit);
+    public WeatherData[] getWeatherForecast(String city) {
+        return fetchWeatherForecast(city);
     }
 
-    private WeatherData[] fetchWeatherForecast(String city, String unit) {
-        String url = String.format("http://api.openweathermap.org/data/2.5/forecast?q=%s&appid=%s&units=%s", city, apiKey, unit);
+    private WeatherData[] fetchWeatherForecast(String city) {
+        String url = String.format("http://api.openweathermap.org/data/2.5/forecast?q=%s&appid=%s&units=metric", city, apiKey);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);

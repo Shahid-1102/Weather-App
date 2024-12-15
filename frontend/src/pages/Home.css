@@ -1,0 +1,22 @@
+.home-container {
+    margin-top: 32px;
+  }
+  
+  .home-container .weather-card-container,
+  .home-container .forecast-container,
+  .home-container .historical-weather-container {
+    margin-top: 32px;
+  }
+  
+  .home-container .weather-card-container,
+  .home-container .forecast-container,
+  .home-container .historical-weather-container {
+    padding: 16px;
+  }
+  
+  .home-container .weather-card-container .weather-card,
+  .home-container .forecast-container .forecast-card,
+  .home-container .historical-weather-container .historical-card {
+    margin: 16px 0;
+  }
+  
