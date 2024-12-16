@@ -53,10 +53,6 @@ const App = () => {
   return (
     <div>
       <SearchAppBar onSearch={handleSearch} />
-      <DatePicker 
-        onStartDateChange={handleStartDateChange} 
-        onEndDateChange={handleEndDateChange} 
-      />
       
       <Home 
         city={city} 

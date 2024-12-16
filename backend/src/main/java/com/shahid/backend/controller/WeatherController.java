@@ -4,11 +4,14 @@ import com.shahid.backend.model.WeatherData;
 import com.shahid.backend.service.HistoricalWeatherService;
 import com.shahid.backend.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -45,29 +48,18 @@ public class WeatherController {
 
 
     @GetMapping("/historical")
-    public ResponseEntity<List<WeatherData>> getHistoricalWeather(
-            @RequestParam String city,
-            @RequestParam String startDate,
-            @RequestParam String endDate) {
+    public ResponseEntity<?> getHistoricalData(
+            @RequestParam("city") String city,
+            @RequestParam("latitude") double latitude,
+            @RequestParam("longitude") double longitude,
+            @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate) {
 
         try {
-            LocalDate start = LocalDate.parse(startDate);
-            LocalDate end = LocalDate.parse(endDate);
-
-            if (!end.isAfter(start)) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-
-            List<WeatherData> historicalWeather = historicalWeatherService.getHistoricalWeather(city, start, end);
-
-            if (historicalWeather != null && !historicalWeather.isEmpty()) {
-                return new ResponseEntity<>(historicalWeather, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-
-        } catch (DateTimeParseException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            WeatherData historicalWeather = historicalWeatherService.fetchHistoricalWeather(city, latitude, longitude, startDate, endDate);
+            return new ResponseEntity<>(historicalWeather, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

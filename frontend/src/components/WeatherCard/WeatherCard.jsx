@@ -4,7 +4,7 @@ import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiThunderstorm } from 'react-icons/wi'; // Weather icons
 
 const WeatherCard = ({ weather, unit, setUnit }) => {
-  if (!weather) return <div>Loading...</div>;
+  if (!weather) return <div >Please Select a City</div>;
 
   const convertTemperature = (temp, unit) => {
     if (unit === 'metric') {
