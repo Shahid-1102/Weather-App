@@ -14,12 +14,16 @@
     flex: 0 0 240px; /* Fixed width for each card */
   }
   
-  .weather-forecast .forecast-card .timestamp {
+  .weather-forecast .forecast-card .date {
     font-size: 1.1rem;
     font-weight: bold;
   }
   
   .weather-forecast .forecast-card .temperature {
+    font-size: 1rem;
+    color: #333;
+  }
+  .weather-forecast .forecast-card .description {
     font-size: 1rem;
     color: #333;
   }

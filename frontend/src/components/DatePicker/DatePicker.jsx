@@ -6,23 +6,29 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Button from '@mui/material/Button';
 import './DatePicker.css';
 
-const DatePicker = ({ onStartDateChange, onEndDateChange, onGetHistoricalData }) => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+const DatePicker = ({ startDate, endDate, onStartDateChange, onEndDateChange, onGetHistoricalData }) => {
 
   const handleStartDateChange = (newDate) => {
-    setStartDate(newDate);
     onStartDateChange(newDate);
   };
 
   const handleEndDateChange = (newDate) => {
-    setEndDate(newDate);
     onEndDateChange(newDate);
+  };
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   const handleGetHistoricalData = () => {
     if (startDate && endDate) {
-      onGetHistoricalData(startDate, endDate);
+        const formattedStartDate = formatDate(startDate);
+        const formattedEndDate = formatDate(endDate);
+        console.log("IN DATEPICKER","City:", city, "Start Date:", formattedStartDate, "End Date:", formattedEndDate);
+        onGetHistoricalData(formattedStartDate, formattedEndDate);
     } else {
       alert("Please select both start and end dates.");
     }
@@ -51,7 +57,7 @@ const DatePicker = ({ onStartDateChange, onEndDateChange, onGetHistoricalData })
         <Button
           variant="contained"
           color="primary"
-          onClick={handleGetHistoricalData}
+         onClick={() => onGetHistoricalData(startDate, endDate)} 
           disabled={!startDate || !endDate}
         >
           Get Historical Data

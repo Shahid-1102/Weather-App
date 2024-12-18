@@ -1,20 +1,26 @@
 package com.shahid.backend.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "weather_data")
 public class WeatherData {
 
     @Id
     private String id;
+
+    @Indexed(unique = true)
     private String cityName;
+
     private String description;
     private double temperature;
     private double feelsLike;
@@ -22,10 +28,16 @@ public class WeatherData {
     private double windSpeed;
     private int pressure;
     private LocalDateTime timestamp;
+    private Map<String, List<String>> hourlyData;
+    private double latitude;
+    private double longitude;
 
+
+    public WeatherData() {
+    }
 
     public WeatherData(String id, String cityName, String description, double temperature,
-                       double feelsLike, int humidity, double windSpeed, int pressure, LocalDateTime timestamp) {
+                       double feelsLike, int humidity, double windSpeed, int pressure, LocalDateTime timestamp, double latitude, double longitude) {
         this.id = id;
         this.cityName = cityName;
         this.description = description;
@@ -35,6 +47,8 @@ public class WeatherData {
         this.windSpeed = windSpeed;
         this.pressure = pressure;
         this.timestamp = timestamp;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public LocalDateTime getTimestamp() {
@@ -107,6 +121,30 @@ public class WeatherData {
 
     public void setPressure(int pressure) {
         this.pressure = pressure;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Map<String, List<String>> getHourlyData() {
+        return hourlyData;
+    }
+
+    public void setHourlyData(Map<String, List<String>> hourlyData) {
+        this.hourlyData = hourlyData;
     }
 }
 

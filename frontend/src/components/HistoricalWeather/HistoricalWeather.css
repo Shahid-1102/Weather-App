@@ -1,23 +1,40 @@
 .historical-weather {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  display: flex;
   gap: 16px;
   margin-top: 16px;
+  overflow-x: auto;
+  padding: 8px;
 }
 
 .historical-weather .historical-card {
-  background-color: #e8f5e9;
+  background-color: #e3f2fd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
+  flex: 0 0 240px;
 }
 
-.historical-weather .timestamp {
+.historical-weather .historical-card .timestamp {
   font-size: 1.1rem;
   font-weight: bold;
 }
 
-.historical-weather .temperature {
+.historical-weather .historical-card .temperature {
   font-size: 1rem;
   color: #333;
+}
+
+.empty-weather-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  text-align: center;
+}
+
+.empty-weather-container h2 {
+  font-size: 3rem;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  text-transform: uppercase; /* Optional: Makes text uppercase */
 }

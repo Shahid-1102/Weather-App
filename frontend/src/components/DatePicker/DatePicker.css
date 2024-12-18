@@ -4,6 +4,11 @@
     justify-content: space-between;
     gap: 16px;
   }
+
+  .date-picker-container .MuiTextField-root {
+    background-color: rgba(255, 255, 255, 0.4); /* White with 60% opacity */
+    border-radius: 4px;
+  }
   
   .date-picker-container .datepicker {
     width: 100%;

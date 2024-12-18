@@ -53,7 +53,7 @@ export default function SearchAppBar({ onSearch }) {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter' && searchTerm.trim()) {
-      onSearch(searchTerm);
+      onSearch(searchTerm.toLowerCase());
     }
   };
 

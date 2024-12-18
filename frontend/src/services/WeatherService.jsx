@@ -24,6 +24,9 @@ export const getWeatherForecast = async (city, unit = 'metric') => {
 
 export const getHistoricalWeather = async (city, startDate, endDate, unit = 'metric') => {
   try {
+    console.log("IN WEATHESERVICE","City:", city, "Start Date:", startDate, "End Date:", endDate);
+    const url = `${apiUrl}/historical?city=${city}&startDate=${startDate}&endDate=${endDate}&unit=${unit}`;
+    console.log("Fetching historical weather with URL in WEBSERV:", url);
     const response = await axiosConfig.get(`${apiUrl}/historical?city=${city}&startDate=${startDate}&endDate=${endDate}&unit=${unit}`);
     return response.data;
   } catch (error) {

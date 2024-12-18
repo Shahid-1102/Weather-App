@@ -1,7 +1,7 @@
+import './App.css';
 import React, { useState, useEffect } from 'react';
 import SearchAppBar from './components/SearchAppBar/SearchAppBar';
 import Home from './pages/Home';
-import DatePicker from './components/DatePicker/DatePicker';
 import { getWeather, getWeatherForecast, getHistoricalWeather } from './services/WeatherService';
 
 const App = () => {
@@ -14,8 +14,12 @@ const App = () => {
 
   const handleSearch = async (searchTerm) => {
     console.log('Searching for city:', searchTerm);
+    console.log("RESET");
     setCity(searchTerm);
-    await fetchWeatherData(searchTerm);  // No need to pass unit anymore
+    setStartDate(null);
+    setEndDate(null);
+    setHistoricalData([]);
+    await fetchWeatherData(searchTerm);
   };
 
   const handleStartDateChange = (newDate) => {
@@ -28,30 +32,55 @@ const App = () => {
 
   const fetchWeatherData = async (city) => {
     try {
-      const weatherResponse = await getWeather(city);  // Default to Celsius
+      console.log("IN APP city:", city);
+      
+      const weatherResponse = await getWeather(city);
       setWeatherData(weatherResponse);
 
-      const forecastResponse = await getWeatherForecast(city);  // Default to Celsius
+      const forecastResponse = await getWeatherForecast(city);
       setForecastData(forecastResponse);
 
-      if (startDate && endDate) {
-        const historicalResponse = await getHistoricalWeather(city, startDate, endDate);  // Default to Celsius
-        setHistoricalData(historicalResponse);
-      }
+      // if (startDate && endDate) {
+      //   console.log("IN APP City:", city, "Start Date:", startDate, "End Date:", endDate);
+      //   const historicalResponse = await getHistoricalWeather(city, startDate, endDate);
+      //   setHistoricalData(historicalResponse);
+      // }
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
   };
 
-  // Use effect to refetch weather data when the city changes
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
+  const fetchHistoricalData = async () => {
+    if (startDate && endDate) {
+      const formattedStartDate = formatDate(startDate);
+      const formattedEndDate = formatDate(endDate);
+      console.log("Fetching historical data for city:", city, "from", formattedStartDate, "to", formattedEndDate);
+      try {
+        const historicalResponse = await getHistoricalWeather(city, formattedStartDate, formattedEndDate);
+        setHistoricalData(historicalResponse);
+      } catch (error) {
+        console.error('Error fetching historical weather data:', error);
+      }
+    } else {
+      console.error("Please select both start and end dates.");
+    }
+  };
+
   useEffect(() => {
     if (city) {
       fetchWeatherData(city);
     }
-  }, [city]); // Trigger when city changes
+  }, [city]);
 
   return (
-    <div>
+    <div className='background'>
       <SearchAppBar onSearch={handleSearch} />
       
       <Home 
@@ -61,6 +90,11 @@ const App = () => {
         historicalWeather={historicalData}
         startDate={startDate} 
         endDate={endDate}
+        onStartDateChange={setStartDate}
+        onEndDateChange={setEndDate}
+        onGetHistoricalData={fetchHistoricalData}
+        setHistoricalData={setHistoricalData}
+        historicalData={historicalData}
       />
     </div>
   );

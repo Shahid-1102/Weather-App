@@ -19,4 +19,10 @@
   .home-container .historical-weather-container .historical-card {
     margin: 16px 0;
   }
+
+  .bold-divider {
+    border-width: 2px !important;
+    margin: 40px 0;
+  }
+  
   

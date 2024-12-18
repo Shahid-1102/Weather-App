@@ -4,7 +4,11 @@ import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiThunderstorm } from 'react-icons/wi'; // Weather icons
 
 const WeatherCard = ({ weather, unit, setUnit }) => {
-  if (!weather) return <div >Please Select a City</div>;
+  if (!weather) return (
+    <div className="empty-weather-container">
+      <h2>Please Select a City</h2>
+    </div>
+  );
 
   const convertTemperature = (temp, unit) => {
     if (unit === 'metric') {
@@ -47,6 +51,10 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
     setUnit((prevUnit) => (prevUnit === 'metric' ? 'imperial' : 'metric'));
   };
 
+  const capitalizeCityName = (city) => {
+    return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+  };
+
   return (
     <Card variant="outlined" className="weather-card" sx={{ position: 'relative' }} >
       <CardContent>
@@ -67,7 +75,7 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
           {/* Weather Details */}
           <Box>
           <Typography variant="h6" className="title">
-            {weather.cityName}
+            {capitalizeCityName(weather.cityName)}
           </Typography>
             <div className="details">
               <Typography variant="body1">Description: {weather.description}</Typography>

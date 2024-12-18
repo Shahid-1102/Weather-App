@@ -12,7 +12,7 @@ const WeatherForecast = ({ forecast, unit }) => {
     const dailyMaxTemp = {};
 
     forecast.forEach((weather) => {
-      const date = new Date(weather.timestamp).toISOString().split('T')[0]; // Extract the date part (YYYY-MM-DD)
+      const date = new Date(weather.timestamp).toISOString().split('T')[0];
       if (!dailyMaxTemp[date] || weather.temperature > dailyMaxTemp[date].temperature) {
         dailyMaxTemp[date] = {
           temperature: weather.temperature,
@@ -30,7 +30,13 @@ const WeatherForecast = ({ forecast, unit }) => {
 
   const dailyForecast = processForecastData(forecast);
 
-  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <div className="weather-forecast">
@@ -39,7 +45,7 @@ const WeatherForecast = ({ forecast, unit }) => {
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card variant="outlined" className="forecast-card">
               <CardContent>
-                <Typography variant="h6" className="date">{weather.date}</Typography>
+                <Typography variant="h6" className="date">{formatDate(weather.date)}</Typography>
                 <Typography variant="body1" className="description">Description: {weather.description}</Typography>
                 <Typography variant="body1" className="temperature">Max Temperature: {unit === 'metric' ? weather.temperature + ' °C' : (weather.temperature * 9/5 + 32).toFixed(2) + ' °F'}</Typography>
               </CardContent>
