@@ -1,10 +1,8 @@
-import axiosConfig from "../api/axiosConfig";
-
-const apiUrl = 'http://localhost:8080/weather';
+import api from '../api/axiosConfig';
 
 export const getWeather = async (city, unit = 'metric') => {
   try {
-    const response = await axiosConfig.get(`${apiUrl}?city=${city}&unit=${unit}`);
+    const response = await api.get(`/weather`, { params: { city, unit } });
     return response.data;
   } catch (error) {
     console.error('Error fetching weather:', error);
@@ -14,7 +12,7 @@ export const getWeather = async (city, unit = 'metric') => {
 
 export const getWeatherForecast = async (city, unit = 'metric') => {
   try {
-    const response = await axiosConfig.get(`${apiUrl}/forecast?city=${city}&unit=${unit}`);
+    const response = await api.get(`/weather/forecast`, { params: { city, unit } });
     return response.data;
   } catch (error) {
     console.error('Error fetching forecast:', error);
@@ -24,10 +22,10 @@ export const getWeatherForecast = async (city, unit = 'metric') => {
 
 export const getHistoricalWeather = async (city, startDate, endDate, unit = 'metric') => {
   try {
-    console.log("IN WEATHESERVICE","City:", city, "Start Date:", startDate, "End Date:", endDate);
-    const url = `${apiUrl}/historical?city=${city}&startDate=${startDate}&endDate=${endDate}&unit=${unit}`;
-    console.log("Fetching historical weather with URL in WEBSERV:", url);
-    const response = await axiosConfig.get(`${apiUrl}/historical?city=${city}&startDate=${startDate}&endDate=${endDate}&unit=${unit}`);
+    console.log("Fetching historical weather:", { city, startDate, endDate, unit });
+    const response = await api.get(`/weather/historical`, {
+      params: { city, startDate, endDate, unit },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching historical weather:', error);
