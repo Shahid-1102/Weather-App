@@ -40,11 +40,11 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
 
   // Determine the appropriate icon based on the weather description
   const getWeatherIcon = (description) => {
-    if (description.includes('cloud')) return <WiCloudy size={60} />;
-    if (description.includes('rain')) return <WiRain size={60} />;
-    if (description.includes('snow')) return <WiSnow size={60} />;
-    if (description.includes('storm')) return <WiThunderstorm size={60} />;
-    return <WiDaySunny size={60} />;
+    if (description.includes('cloud')) return <WiCloudy size={150} />;
+    if (description.includes('rain')) return <WiRain size={150} />;
+    if (description.includes('snow')) return <WiSnow size={150} />;
+    if (description.includes('storm')) return <WiThunderstorm size={150} />;
+    return <WiDaySunny size={150} />;
   };
 
   const toggleUnit = () => {
@@ -67,11 +67,6 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
 
         {/* Content Box for Weather Icon and Data */}
         <Box display="flex" alignItems="center" justifyContent="center">
-          {/* Weather Icon */}
-          <Box className="weather-icon" mr={2}>
-            {getWeatherIcon(weather.description)}
-          </Box>
-
           {/* Weather Details */}
           <Box>
           <Typography variant="h6" className="title">
@@ -91,6 +86,9 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
               </Typography>
               <Typography variant="body1">Pressure: {weather.pressure} hPa</Typography>
             </div>
+          </Box>
+          <Box className="weather-icon" ml={12}>
+            {getWeatherIcon(weather.description)}
           </Box>
         </Box>
       </CardContent>

@@ -80,7 +80,9 @@ const App = () => {
   }, [city]);
 
   return (
-    <div className='background'>
+    <>
+    <div className="background"></div>
+    <div className="content">
       <SearchAppBar onSearch={handleSearch} />
       
       <Home 
@@ -97,6 +99,7 @@ const App = () => {
         historicalData={historicalData}
       />
     </div>
+    </>
   );
 };
 

@@ -1,9 +1,11 @@
-/* App.css */
+/* App styles */
 .app {
   font-family: Arial, sans-serif;
   background-color: #fafafa;
   min-height: 100vh;
   padding: 20px;
+  position: relative; /* Ensures content is above the background */
+  z-index: 1; /* Makes sure content is above the background */
 }
 
 .app .search-container {
@@ -18,11 +20,22 @@
   margin-top: 32px;
 }
 
+/* Background styling */
 .background {
+  position: fixed; /* Fixes the background in place */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Full height of viewport */
   background-image: url('/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  width: 100%;
-  height: 100vh; /* Full height of viewport */
+  z-index: -1; /* Places the background behind content */
+}
+
+/* Content styling (if you need more specific adjustments) */
+.content {
+  position: relative; /* Ensures the content div is not affected by background */
+  z-index: 2; /* Ensures it's above the background */
 }
